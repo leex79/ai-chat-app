@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle2, ChevronDown, ChevronRight, Loader2, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ToolInvocation } from "@/lib/types";
+import { ToolResultContent } from "@/components/mcp/tool-result-content";
 
 interface ToolCallCardProps {
   invocation: ToolInvocation;
@@ -65,14 +66,7 @@ export function ToolCallCard({ invocation }: ToolCallCardProps) {
           {hasResult && (
             <div>
               <p className="mb-1 font-semibold text-muted-foreground">결과</p>
-              <pre className={cn(
-                "overflow-auto whitespace-pre-wrap break-words rounded bg-muted p-2 font-mono leading-relaxed",
-                "text-[11px]",
-              )}>
-                {typeof invocation.result === "string"
-                  ? invocation.result
-                  : JSON.stringify(invocation.result, null, 2)}
-              </pre>
+              <ToolResultContent result={invocation.result} />
             </div>
           )}
           {!hasArgs && !hasResult && (

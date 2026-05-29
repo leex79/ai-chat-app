@@ -8,9 +8,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { McpTool } from "@/lib/mcp-types";
+import { ToolResultContent } from "@/components/mcp/tool-result-content";
 
 interface ToolResult {
-  content: { type: string; text?: string }[];
+  content: { type: string; text?: string; data?: string; mimeType?: string }[];
   isError?: boolean;
 }
 
@@ -140,14 +141,7 @@ export function TabTools({ tools, onCallTool }: TabToolsProps) {
                   <CardTitle className="text-xs text-muted-foreground">실행 결과</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {result.content.map((c, i) => (
-                    <pre
-                      key={i}
-                      className="whitespace-pre-wrap break-words rounded-md bg-muted p-3 font-mono text-xs leading-relaxed"
-                    >
-                      {c.text ?? JSON.stringify(c)}
-                    </pre>
-                  ))}
+                  <ToolResultContent result={result} />
                 </CardContent>
               </Card>
             )}
